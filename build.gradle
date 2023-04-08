@@ -16,12 +16,15 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven { url 'https://jitpack.io' }
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.0.5'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'org.telegram:telegrambots:6.5.0'
+	implementation 'org.telegram:telegrambots-chat-session-bot:6.5.0'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
