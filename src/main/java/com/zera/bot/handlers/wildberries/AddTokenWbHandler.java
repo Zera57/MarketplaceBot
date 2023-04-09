@@ -23,7 +23,7 @@ public class AddTokenWbHandler implements IHandler {
 
     @Override
     public HandlerState getName() {
-        return HandlerState.WB_TOKEN;
+        return HandlerState.WB_ADD_TOKEN;
     }
 
     public List<BotApiMethodMessage> handle(RequestCommand requestCommand) {

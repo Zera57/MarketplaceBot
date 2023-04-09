@@ -26,7 +26,7 @@ public class MarketplaceBot extends TelegramLongPollingSessionBot {
     private final AuthService authService;
     Map<HandlerState, IHandler> handlerMap;
 
-    public MarketplaceBot(@Value("5995938284:AAFjkkDj5r3CHHTe-mEUEhGsKI14JOSS_AM") String botToken,
+    public MarketplaceBot(@Value("TOKEN") String botToken,
                           AuthService authService,
                           ApplicationContext applicationContext) {
         super(botToken);

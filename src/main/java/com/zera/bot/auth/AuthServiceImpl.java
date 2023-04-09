@@ -19,8 +19,7 @@ public class AuthServiceImpl implements AuthService {
         if (byTelegramId.isPresent())
             return byTelegramId.get();
 
-        return byTelegramId.
-                orElse(registerAccount(telegramId));
+        return (registerAccount(telegramId));
     }
 
     private Account registerAccount(Long telegramId) {

@@ -10,7 +10,9 @@ import java.util.Arrays;
 public enum HandlerState {
     MENU("/menu"),
     WB("/wb"),
-    WB_TOKEN("/wb-add-token"),
+    WB_ADD_TOKEN("/wb-add-token"),
+    WB_DEMAND_FORECAST("/wb-demand-forecast"),
+    WB_GET_DEMAND_FORECAST("/wb-get-demand-forecast"),
     DEFAULT("/default");
 
     private String command;

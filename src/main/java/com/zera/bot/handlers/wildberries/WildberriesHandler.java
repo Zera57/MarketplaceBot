@@ -45,14 +45,14 @@ public class WildberriesHandler implements IHandler {
         InlineKeyboardButton wbToken = new InlineKeyboardButton();
         // Set each button, you can also use KeyboardButton objects if you need something else than text
         wbToken.setText("Изменить токен");
-        wbToken.setCallbackData(HandlerState.WB_TOKEN.getCommand());
+        wbToken.setCallbackData(HandlerState.WB_ADD_TOKEN.getCommand());
         // Add the first row to the keyboard
         column.add(Collections.singletonList(wbToken));
 
         InlineKeyboardButton wbCount = new InlineKeyboardButton();
         // Set each button, you can also use KeyboardButton objects if you need something else than text
         wbCount.setText("Прогноз поставок");
-        wbCount.setCallbackData("/wb-prognoz");
+        wbCount.setCallbackData(HandlerState.WB_DEMAND_FORECAST.getCommand());
         // Add the first row to the keyboard
         column.add(Collections.singletonList(wbCount));
 
