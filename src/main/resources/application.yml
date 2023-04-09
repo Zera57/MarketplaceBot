@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    password: postgres
+    url: jdbc:postgresql://localhost:5432/marketplace_bot
+    username: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+
+  flyway:
+    password: postgres
+    url: jdbc:postgresql://localhost:5432/marketplace_bot
+    user: postgres
