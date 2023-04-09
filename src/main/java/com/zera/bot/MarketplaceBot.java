@@ -1,5 +1,6 @@
 package com.zera.bot;
 
+import com.zera.bot.auth.AuthService;
 import com.zera.bot.handlers.HandlerState;
 import com.zera.bot.handlers.IHandler;
 import com.zera.bot.handlers.request.ARequest;
@@ -9,6 +10,7 @@ import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.botapimethods.BotApiMethodMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.session.TelegramLongPollingSessionBot;
@@ -21,14 +23,14 @@ import java.util.stream.Collectors;
 @Component
 public class MarketplaceBot extends TelegramLongPollingSessionBot {
     public static final String NAME_BOT = "MarketplaceBot";
-//    private final AuthService authService;
+    private final AuthService authService;
     Map<HandlerState, IHandler> handlerMap;
 
     public MarketplaceBot(@Value("5995938284:AAFjkkDj5r3CHHTe-mEUEhGsKI14JOSS_AM") String botToken,
-//                          AuthService authService,
+                          AuthService authService,
                           ApplicationContext applicationContext) {
         super(botToken);
-//        this.authService = authService;
+        this.authService = authService;
 
         // Собираем все IHandler
         Map<String, IHandler> beansOfType = applicationContext.getBeansOfType(IHandler.class);
@@ -56,7 +58,8 @@ public class MarketplaceBot extends TelegramLongPollingSessionBot {
         IHandler iHandler = handlerMap.get(requestCommand.getHandlerState());
 
         try {
-            execute(iHandler.handle(requestCommand));
+            for (BotApiMethodMessage message : iHandler.handle(requestCommand))
+                execute(message);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
@@ -83,7 +86,7 @@ public class MarketplaceBot extends TelegramLongPollingSessionBot {
             request = new RequestMessage();
             telegramId = update.getMessage().getFrom().getId();
 
-//            request.setAccount(authService.getAccount(telegramId));
+            request.setAccount(authService.getAccount(telegramId));
             request.setChatId(update.getMessage().getChatId());
 
             request.setHandlerState(HandlerState.findCommand(String.valueOf(session.getAttribute("state"))));
@@ -97,7 +100,7 @@ public class MarketplaceBot extends TelegramLongPollingSessionBot {
             request = new RequestCommand();
             telegramId = update.getCallbackQuery().getFrom().getId();
 
-//            request.setAccount(authService.getAccount(telegramId));
+            request.setAccount(authService.getAccount(telegramId));
             request.setChatId(update.getCallbackQuery().getMessage().getChatId());
 
             String data = update.getCallbackQuery().getData();
